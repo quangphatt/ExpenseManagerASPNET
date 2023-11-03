@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "ExpenseManager/1.0.0": {
         "dependencies": {
+          "Microsoft.EntityFrameworkCore.Design": "7.0.13",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.13"
         },
