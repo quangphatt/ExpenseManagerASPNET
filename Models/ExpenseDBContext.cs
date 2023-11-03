@@ -4,6 +4,7 @@ namespace ExpenseManager.Models
 {
     public class ExpenseDBContext : DbContext
     {
+        public ExpenseDBContext() { }
         public ExpenseDBContext(DbContextOptions<ExpenseDBContext> options) : base(options)
         { }
 
