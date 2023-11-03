@@ -1,19 +1,25 @@
-﻿using ExpenseManager.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ExpenseManager.Models;
+using ExpenseManager.Interfaces;
 
 namespace ExpenseManager.Controllers
 {
     public class ExpenseController : Controller
     {
-        ExpensesDataAccessLayer objExpense = new ExpensesDataAccessLayer();
+        private readonly IExpenseService expenseService;
+
+        public ExpenseController(IExpenseService _expenseService)
+        {
+            expenseService = _expenseService;
+        }
         public IActionResult Index(string searchString)
         {
             List<ExpenseReport> listExpense = new List<ExpenseReport>();
-            listExpense = objExpense.GetAllExpenses().ToList();
+            listExpense = expenseService.GetAllExpenses().ToList();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                listExpense = objExpense.GetSearchResult(searchString).ToList();
+                listExpense = expenseService.GetSearchResult(searchString).ToList();
             }
             return View(listExpense);
         }
@@ -23,7 +29,7 @@ namespace ExpenseManager.Controllers
             ExpenseReport model = new ExpenseReport();
             if (itemId > 0)
             {
-                model = objExpense.GetExpenseData(itemId);
+                model = expenseService.GetExpenseData(itemId);
             }
             return PartialView("_expenseForm", model);
         }
@@ -35,11 +41,11 @@ namespace ExpenseManager.Controllers
             {
                 if (newExpense.ItemId > 0)
                 {
-                    objExpense.UpdateExpense(newExpense);
+                    expenseService.UpdateExpense(newExpense);
                 }
                 else
                 {
-                    objExpense.AddExpense(newExpense);
+                    expenseService.AddExpense(newExpense);
                 }
             }
             return RedirectToAction("Index");
@@ -48,7 +54,7 @@ namespace ExpenseManager.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            objExpense.DeleteExpense(id);
+            expenseService.DeleteExpense(id);
             return RedirectToAction("Index");
         }
 
@@ -59,13 +65,13 @@ namespace ExpenseManager.Controllers
 
         public JsonResult GetMonthlyExpense()
         {
-            Dictionary<string, decimal> monthlyExpense = objExpense.CalculateMonthlyExpense();
+            Dictionary<string, decimal> monthlyExpense = expenseService.CalculateMonthlyExpense();
             return new JsonResult(monthlyExpense);
         }
 
         public JsonResult GetWeeklyExpense()
         {
-            Dictionary<string, decimal> weeklyExpense = objExpense.CalculateWeeklyExpense();
+            Dictionary<string, decimal> weeklyExpense = expenseService.CalculateWeeklyExpense();
             return new JsonResult(weeklyExpense);
         }
     }
