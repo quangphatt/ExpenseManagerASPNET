@@ -16,6 +16,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\CourseProject\ASP\ExpenseManager
 build_property._RazorSourceGeneratorDebug = 
 
+[E:/CourseProject/ASP/ExpenseManager/Views/Expense/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/CourseProject/ASP/ExpenseManager/Views/Expense/_expenseForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxfZXhwZW5zZUZvcm0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/CourseProject/ASP/ExpenseManager/Views/Expense/_expenseReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZW5zZVxfZXhwZW5zZVJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/CourseProject/ASP/ExpenseManager/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
