@@ -8,6 +8,7 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous"/>
 
 <h2>Personal Expense Manager</h2>
 <br />
@@ -17,11 +18,11 @@
         <button class="btn btn-success" onclick="ReportExpense()">Expense Report</button>
     </div>
     <div style="float:right; width:40%;">
-        <form asp-controller="Expense" asp-action="Index" class="form-group">
+        <form asp-controller="Expense" asp-action="Index" class="form-group d-inline-flex">
             <div class="col-sm-6">
                 <input class="form-control" type="text" name="SearchString" placeholder="Search">
             </div>
-            <button type="submit" class="btn btn-default btn-info">Filter</button>
+            <button type="submit" class="btn btn-info ms-1"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
     </div>
 </div>
@@ -30,11 +31,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.ItemId)</th>
-            <th>@Html.DisplayNameFor(model => model.ItemName)</th>
-            <th>@Html.DisplayNameFor(model => model.Amount)</th>
-            <th>@Html.DisplayNameFor(model => model.ExpenseDate)</th>
-            <th>@Html.DisplayNameFor(model => model.Category)</th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Expense Date</th>
+            <th>Category</th>
             <th>Action Item</th>
         </tr>
     </thead>
@@ -56,14 +57,16 @@
     </tbody>
 </table>
 
-<div class="modal fade" id="expenseFormModel" role="dialog">
+<div class="modal fade" id="expenseFormModal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            <div class="modal-header align-items-center">
+                <button type="button" class="btn" aria-label="Close" onClick="CloseExpenseFormModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
                 <h3 id="title" class="modal-title">Add Expense</h3>
             </div>
-            <div class="modal-body" id="expenseFormModelDiv">
+            <div class="modal-body" id="expenseFormModalDiv">
             </div>
         </div>
     </div>
@@ -73,7 +76,9 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <button type="button" class="btn" aria-label="Close" onClick="CloseExpenseReportModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
                 <h3 class="modal-title">Expense Report</h3>
             </div>
             <div class="modal-body" id="expenseReportModalDiv">
@@ -88,19 +93,17 @@
         if (itemId > 0)
             $('#title').html("Edit Expense");
 
-        $("#expenseFormModelDiv").load(url, function () {
-            $("#expenseFormModel").modal("show");
-
+        $("#expenseFormModalDiv").load(url, function () {
+            $("#expenseFormModal").modal("show");
         });
 
-        $('#expenseFormModel').on('shown.bs.modal', function () {
-
+        $('#expenseFormModal').on('shown.bs.modal', function () {
             $('#calender-container .input-group.date').datepicker({
                 todayBtn: true,
                 calendarWeeks: true,
                 todayHighlight: true,
                 autoclose: true,
-                container: '#expenseFormModel modal-body'
+                container: '#expenseFormModal modal-body'
             });
 
         });
@@ -126,6 +129,14 @@
                 }
             })
         }
+    }
+
+    var CloseExpenseFormModal = () => {
+        $("#expenseFormModal").modal("hide");
+    }
+
+    var CloseExpenseReportModal = () => {
+        $("#expenseReportModal").modal("hide");
     }
 </script>
 
